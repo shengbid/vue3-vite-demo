@@ -7,22 +7,6 @@ import HelloWorld from "./components/HelloWorld.vue";
 <template>
   <div>
     <router-view />
-    <!-- <div :class="['weight', 'padding']" :style="{ color: 'red' }">测试</div> -->
-    <!-- <a-space>
-      <router-link to="/home">去home页面</router-link>
-      <router-link to="/user">去user页面</router-link>
-      <router-link to="/chart">去chart页面</router-link>
-      <router-link to="/transfer">去transfer页面</router-link>
-    </a-space>
-    <router-view #default="{ Component, route }"> -->
-    <!-- <keep-alive :include="['user']">
-        <component :is="Component" />
-      </keep-alive> -->
-    <!-- <keep-alive>
-        <component :is="Component" v-if="route.meta.keepAlive" />
-      </keep-alive>
-      <component :is="Component" v-if="!route.meta.keepAlive" />
-    </router-view> -->
   </div>
 </template>
 
