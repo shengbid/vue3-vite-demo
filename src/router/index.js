@@ -33,14 +33,14 @@ const routes = [
             path: "/vueinfo/v-model",
             component: () => import("@views/vueinfo/v-model/index.vue"),
           },
+          {
+            path: "/vueinfo/global",
+            component: () => import("@views/user/index.vue"),
+            meta: {
+              keepAlive: true,
+            },
+          },
         ],
-      },
-      {
-        path: "/user",
-        component: () => import("@views/user/index.vue"),
-        meta: {
-          keepAlive: true,
-        },
       },
     ],
   },

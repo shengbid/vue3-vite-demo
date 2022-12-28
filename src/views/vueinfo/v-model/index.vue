@@ -1,7 +1,10 @@
 <template>
   <div>
     <h3>v-model实现</h3>
-    <my-input v-model="inputValue" v-model:titleValue="title" />
+    <my-input
+      v-model.capitalize="inputValue"
+      v-model:titleValue.capitalize="title"
+    />
     <div>inputValue: {{ inputValue }}</div>
     <div>titleValue: {{ title }}</div>
   </div>

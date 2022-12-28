@@ -37,7 +37,15 @@
           minHeight: '280px',
         }"
       >
-        <router-view />
+        <router-view #default="{ Component, route }">
+          <!-- <keep-alive :include="['user']">
+        <component :is="Component" />
+      </keep-alive> -->
+          <keep-alive>
+            <component :is="Component" v-if="route.meta.keepAlive" />
+          </keep-alive>
+          <component :is="Component" v-if="!route.meta.keepAlive" />
+        </router-view>
       </a-layout-content>
     </a-layout>
   </a-layout>

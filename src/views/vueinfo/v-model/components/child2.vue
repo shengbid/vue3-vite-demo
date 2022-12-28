@@ -1,6 +1,6 @@
 <template>
   <div>
-    name: <input :value="modelValue" @input="inputValue" type="number" /> title:
+    name: <input :value="modelValue" @input="inputValue" /> title:
     <input :value="titleValue" @input="inputTilte" />
   </div>
 </template>
@@ -16,14 +16,24 @@ export default {
       type: String,
       default: "",
     },
+    modelModifiers: { default: () => ({}) },
+    titleValueModifiers: { default: () => ({}) },
   },
   setup(props, { emit }) {
+    // console.log(props.modelModifiers);
     const inputValue = (e) => {
-      const value = e.target.value;
+      let value = e.target.value;
+      if (props.modelModifiers.capitalize) {
+        value = value.charAt(0).toUpperCase() + value.slice(1);
+      }
       emit("update:modelValue", value);
     };
     const inputTilte = (e) => {
-      emit("update:titleValue", e.target.value);
+      let value = e.target.value;
+      if (props.titleValueModifiers.capitalize) {
+        value = value.charAt(0).toUpperCase() + value.slice(1);
+      }
+      emit("update:titleValue", value);
     };
     return {
       inputValue,
