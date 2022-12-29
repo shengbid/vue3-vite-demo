@@ -80,12 +80,11 @@ export default {
       console.log(
         1,
         appContext.config.globalProperties.$filters.formatNumber(6666.777)
-  
       );
-       appContext.config.globalProperties.$myLoading.show()
+      appContext.config.globalProperties.$myLoading.show();
       setTimeout(() => {
-        appContext.config.globalProperties.$myLoading.close()
-      }, 2000)
+        appContext.config.globalProperties.$myLoading.close();
+      }, 500);
     });
 
     const onFinish = (values) => {
