@@ -27,8 +27,8 @@ export default {
     const route = useRoute();
 
     const handleRoute = () => {
-      // console.log(route);
-      const { path } = route;
+      console.log(route);
+      const { path, meta } = route;
       info.selectedKeys = [path];
       const paths = path.split("/");
 
@@ -37,6 +37,7 @@ export default {
       } else {
         info.openKeys = [path];
       }
+      emit("selectMenu", { path, title: meta.title });
     };
     handleRoute();
 
