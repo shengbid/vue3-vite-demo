@@ -14,7 +14,7 @@
       collapsible
     >
       <div class="logo" />
-      <Menu />
+      <Menu @selectMenu="selectMenu" />
     </a-layout-sider>
     <a-layout :style="{ marginLeft: '200px' }">
       <a-layout-header style="background: #fff; padding: 0">
@@ -29,9 +29,23 @@
           @click="() => (collapsed = !collapsed)"
         />
       </a-layout-header>
+      <a-tabs
+        v-model:activeKey="activeKey"
+        hide-add
+        type="editable-card"
+        @change="changeTab"
+        @edit="onEdit"
+      >
+        <a-tab-pane
+          v-for="(pane, i) in panes"
+          :key="pane.path"
+          :tab="pane.title"
+          :closable="i !== 0"
+        />
+      </a-tabs>
       <a-layout-content
         :style="{
-          margin: '24px 16px',
+          margin: '0px 16px 24px',
           padding: '24px',
           background: '#fff',
           minHeight: '280px',
@@ -52,8 +66,9 @@
 </template>
 <script>
 import { MenuUnfoldOutlined, MenuFoldOutlined } from "@ant-design/icons-vue";
-import { defineComponent, ref } from "vue";
+import { defineComponent, ref, reactive, toRefs } from "vue";
 import Menu from "./sider/menu/index.vue";
+import { useRouter } from "vue-router";
 
 export default defineComponent({
   components: {
@@ -63,7 +78,40 @@ export default defineComponent({
   },
   setup() {
     const collapsed = ref(false);
-    return { collapsed };
+    const info = reactive({
+      activeKey: "/home",
+      panes: [{ title: "首页", path: "/home" }],
+    });
+    const router = useRouter();
+    // 删除tab
+    const onEdit = (key, action) => {
+      info.panes = info.panes.filter((item) => item.path !== key);
+      // 如果删除的是当前展示的项,往前移一项
+      if (info.activeKey === key) {
+        info.activeKey = info.panes[info.panes.length - 1].path;
+      }
+    };
+    // 切换tab
+    const changeTab = (key) => {
+      info.activeKey = key;
+      router.push(key);
+    };
+    // 选择菜单
+    const selectMenu = (row) => {
+      // console.log(row);
+      const showKeys = info.panes.filter((item) => item.path === row.path);
+      if (!showKeys.length) {
+        info.panes.push(row);
+      }
+      info.activeKey = row.path;
+    };
+    return {
+      collapsed,
+      ...toRefs(info),
+      onEdit,
+      changeTab,
+      selectMenu,
+    };
   },
 });
 </script>

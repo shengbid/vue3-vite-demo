@@ -4,6 +4,7 @@
     v-model:selectedKeys="selectedKeys"
     mode="inline"
     theme="dark"
+    @select="selectMenu"
   >
     <MenuItem />
   </a-menu>
@@ -18,7 +19,7 @@ export default {
   components: {
     MenuItem,
   },
-  setup() {
+  setup(props, { emit }) {
     const info = reactive({
       openKeys: ["/home"],
       selectedKeys: ["/home"],
@@ -43,8 +44,14 @@ export default {
       handleRoute();
     });
 
+    const selectMenu = ({ key, item }) => {
+      const { title } = item;
+      emit("selectMenu", { path: key, title });
+    };
+
     return {
       ...toRefs(info),
+      selectMenu,
     };
   },
 };

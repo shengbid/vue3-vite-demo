@@ -3,6 +3,7 @@
     <a-menu-item
       :key="item.path"
       v-if="!item.children"
+      :title="item.title"
       @click="clickMenu(item.path)"
     >
       <template #icon v-if="item.icon">
