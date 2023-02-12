@@ -28,6 +28,19 @@ const routes = [
         ],
       },
       {
+        path: "/table",
+        redirect: "/table/mutilSpanTable",
+        children: [
+          {
+            path: "/table/mutilSpanTable",
+            component: () => import("@views/table/mutilSpanTable/index.vue"),
+            meta: {
+              title: "动态层级表格合并",
+            },
+          },
+        ],
+      },
+      {
         path: "/form",
         redirect: "/form/mutilForm",
         children: [

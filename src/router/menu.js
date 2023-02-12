@@ -16,6 +16,17 @@ export default [
     ],
   },
   {
+    path: "/table",
+    title: "表格",
+    icon: "TableOutlined",
+    children: [
+      {
+        path: "/table/mutilSpanTable",
+        title: "动态层级表格合并",
+      },
+    ],
+  },
+  {
     path: "/form",
     title: "表单",
     icon: "ProfileOutlined",
