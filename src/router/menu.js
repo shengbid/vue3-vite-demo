@@ -24,6 +24,10 @@ export default [
         path: "/table/mutilSpanTable",
         title: "动态层级表格合并",
       },
+      {
+        path: "/table/styleTable",
+        title: "表格样式设置",
+      },
     ],
   },
   {

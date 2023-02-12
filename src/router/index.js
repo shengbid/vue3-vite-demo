@@ -38,6 +38,13 @@ const routes = [
               title: "动态层级表格合并",
             },
           },
+          {
+            path: "/table/styleTable",
+            component: () => import("@views/table/styleTable/index.vue"),
+            meta: {
+              title: "表格样式设置",
+            },
+          },
         ],
       },
       {
