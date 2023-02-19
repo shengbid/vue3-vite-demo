@@ -91,6 +91,14 @@ const routes = [
       },
     ],
   },
+  {
+    path: "/404",
+    component: () => import("@views/404.vue"),
+  },
+  {
+    path: "/:catchAll(.*)",
+    redirect: "/404",
+  },
 ];
 
 const router = createRouter({
