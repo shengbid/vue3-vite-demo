@@ -213,7 +213,7 @@ export default {
             t.col >= minCol &&
             t.col <= maxCol
           ) {
-            this.$set(t, "check", check);
+            t.check = false;
           }
         });
       });
