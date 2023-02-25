@@ -5,31 +5,32 @@
       <a-button type="primary" @click="add"> 新增 </a-button>
     </div>
     <a-table :columns="columns" :data-source="tableData" bordered>
-      <template #name="{ text, record }">
-        <a href="">{{ text }}</a>
-      </template>
-      <template #action="{ record }">
-        <a-space :size="16">
-          <a-button type="primary" shape="circle" @click="onEdit(record)">
-            <template #icon><EditOutlined /></template>
-          </a-button>
-          <a-popconfirm
-            v-if="tableData.length > 1"
-            title="确定删除?"
-            @confirm="remove(record.key)"
-          >
-            <a-button
-              type="primary"
-              shape="circle"
-              :disabled="tableData.length < 2"
-            >
-              <template #icon><DeleteOutlined /></template>
+      <template #bodyCell="{ column, record }">
+        <template v-if="column.dataIndex === 'name'">
+          <a href="">{{ record.name }}</a>
+        </template>
+        <template v-if="column.dataIndex === 'action'">
+          <a-space :size="16">
+            <a-button type="primary" shape="circle" @click="onEdit(record)">
+              <template #icon><EditOutlined /></template>
             </a-button>
-          </a-popconfirm>
-        </a-space>
+            <a-popconfirm
+              v-if="tableData.length > 1"
+              title="确定删除?"
+              @confirm="remove(record.key)"
+            >
+              <a-button
+                type="primary"
+                shape="circle"
+                :disabled="tableData.length < 2"
+              >
+                <template #icon><DeleteOutlined /></template>
+              </a-button>
+            </a-popconfirm>
+          </a-space>
+        </template>
       </template>
     </a-table>
-    <div v-for="item in arrlist">{{ item.name }}</div>
     <add-model :visible="visible" :formData="formData" @onCancel="onCancel" />
   </div>
 </template>
@@ -56,7 +57,6 @@ export default {
       {
         title: "机构名称",
         dataIndex: "name",
-        slots: { customRender: "name" },
       },
       {
         title: "机构类型",
@@ -74,7 +74,6 @@ export default {
       {
         title: "action",
         dataIndex: "action",
-        slots: { customRender: "action" },
         width: "10%",
       },
     ];
