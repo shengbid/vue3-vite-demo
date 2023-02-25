@@ -9,6 +9,6 @@ export default {
     const Vnode = createVNode(Loading)
     render(Vnode, document.body)
     app.config.globalProperties.$myLoading = Vnode.component.ctx
-    console.log(app, Vnode)
+    // console.log(app, Vnode)
   }
 }
