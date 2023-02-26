@@ -2,11 +2,16 @@
 // This starter template is using Vue 3 <script setup> SFCs
 // Check out https://v3.vuejs.org/api/sfc-script-setup.html#sfc-script-setup
 import HelloWorld from "./components/HelloWorld.vue";
+import zhCN from "ant-design-vue/es/locale/zh_CN";
+
+const locale = zhCN;
 </script>
 
 <template>
   <div>
-    <router-view />
+    <a-config-provider :locale="locale">
+      <router-view />
+    </a-config-provider>
   </div>
 </template>
 
