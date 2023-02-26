@@ -1,13 +1,14 @@
-import { createRouter, createWebHashHistory } from "vue-router";
+import {
+  createRouter,
+  createWebHashHistory
+} from "vue-router";
 import menuLayout from "../layouts/index.vue";
 
-const routes = [
-  {
+const routes = [{
     path: "/",
     component: menuLayout,
     redirect: "/home",
-    children: [
-      {
+    children: [{
         path: "/home",
         component: () => import("@views/home/index.vue"),
         meta: {
@@ -17,21 +18,18 @@ const routes = [
       {
         path: "/chart",
         redirect: "/chart/pie",
-        children: [
-          {
-            path: "/chart/pie",
-            component: () => import("@views/chart/index.vue"),
-            meta: {
-              title: "多重环形图",
-            },
+        children: [{
+          path: "/chart/pie",
+          component: () => import("@views/chart/index.vue"),
+          meta: {
+            title: "多重环形图",
           },
-        ],
+        }, ],
       },
       {
         path: "/table",
         redirect: "/table/mutilSpanTable",
-        children: [
-          {
+        children: [{
             path: "/table/mutilSpanTable",
             component: () => import("@views/table/mutilSpanTable/index.vue"),
             meta: {
@@ -50,21 +48,18 @@ const routes = [
       {
         path: "/form",
         redirect: "/form/mutilForm",
-        children: [
-          {
-            path: "/form/mutilForm",
-            component: () => import("@views/form/mutilForm/index.vue"),
-            meta: {
-              title: "动态增减表单",
-            },
+        children: [{
+          path: "/form/mutilForm",
+          component: () => import("@views/form/mutilForm/index.vue"),
+          meta: {
+            title: "动态增减表单",
           },
-        ],
+        }, ],
       },
       {
         path: "/demo",
         redirect: "/demo/dragTime",
-        children: [
-          {
+        children: [{
             path: "/demo/dragTime",
             component: () => import("@views/demo/dragTime/index.vue"),
             meta: {
@@ -83,8 +78,7 @@ const routes = [
       {
         path: "/vueinfo",
         redirect: "/vueinfo/transfer",
-        children: [
-          {
+        children: [{
             path: "/vueinfo/transfer",
             component: () => import("@views/vueinfo/transfer/index.vue"),
             meta: {
@@ -109,6 +103,18 @@ const routes = [
           },
         ],
       },
+      {
+        path: "/userManage",
+        redirect: "/userManage/userInfo",
+        children: [{
+          path: "/userManage/userInfo",
+          name: 'userInfo',
+          component: () => import("@views/userManage/userInfo/index.vue"),
+          meta: {
+            title: "个人中心",
+          },
+        }, ]
+      }
     ],
   },
   {
