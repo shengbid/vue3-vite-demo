@@ -28,6 +28,31 @@
           class="trigger"
           @click="() => (collapsed = !collapsed)"
         />
+        <div class="right-person">
+          <a-dropdown>
+            <a class="ant-dropdown-link" @click="(e) => e.preventDefault()">
+              <a-avatar style="background-color: #fde3cf">
+                <template #icon>
+                  <UserOutlined />
+                </template>
+              </a-avatar>
+              <span class="name">
+                {{ userInfo.name }}
+              </span>
+              <DownOutlined />
+            </a>
+            <template #overlay>
+              <a-menu>
+                <a-menu-item>
+                  <a href="javascript:;" @click="toUser">个人中心</a>
+                </a-menu-item>
+                <a-menu-item>
+                  <a href="javascript:;">退出登陆</a>
+                </a-menu-item>
+              </a-menu>
+            </template>
+          </a-dropdown>
+        </div>
       </a-layout-header>
       <a-tabs
         v-model:activeKey="activeKey"
@@ -69,15 +94,24 @@
   </a-layout>
 </template>
 <script>
-import { MenuUnfoldOutlined, MenuFoldOutlined } from "@ant-design/icons-vue";
+import {
+  MenuUnfoldOutlined,
+  MenuFoldOutlined,
+  UserOutlined,
+  DownOutlined,
+} from "@ant-design/icons-vue";
 import { defineComponent, ref, reactive, toRefs } from "vue";
 import Menu from "./sider/menu/index.vue";
 import { useRouter } from "vue-router";
+import { storeToRefs } from "pinia";
+import { useUserInfoStore } from "@/stores/userInfo";
 
 export default defineComponent({
   components: {
     MenuUnfoldOutlined,
     MenuFoldOutlined,
+    UserOutlined,
+    DownOutlined,
     Menu,
   },
   setup() {
@@ -86,7 +120,14 @@ export default defineComponent({
       activeKey: "/home",
       panes: [{ title: "首页", path: "/home" }],
     });
+    const userStore = useUserInfoStore();
+    const { userInfo } = storeToRefs(userStore);
+    // console.log(userStore);
+    console.log("初始值: userInfo", userInfo);
     const router = useRouter();
+    const toUser = () => {
+      router.push({ name: "userInfo" });
+    };
     // 删除tab
     const onEdit = (key, action) => {
       info.panes = info.panes.filter((item) => item.path !== key);
@@ -115,6 +156,8 @@ export default defineComponent({
       onEdit,
       changeTab,
       selectMenu,
+      userInfo,
+      toUser,
     };
   },
 });
@@ -140,5 +183,12 @@ export default defineComponent({
 
 .site-layout .site-layout-background {
   background: #fff;
+}
+.right-person {
+  float: right;
+  margin-right: 24px;
+}
+.name {
+  margin: 0 10px;
 }
 </style>
