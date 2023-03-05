@@ -47,7 +47,7 @@
                   <a href="javascript:;" @click="toUser">个人中心</a>
                 </a-menu-item>
                 <a-menu-item>
-                  <a href="javascript:;">退出登陆</a>
+                  <a href="javascript:;" @click="logout">退出登陆</a>
                 </a-menu-item>
               </a-menu>
             </template>
@@ -151,6 +151,11 @@ export default defineComponent({
       }
       info.activeKey = row.path;
     };
+    // 退出登录
+    const logout = () => {
+      router.push({ name: "login" });
+      sessionStorage.removeItem("loginInfo");
+    };
     return {
       collapsed,
       ...toRefs(info),
@@ -159,6 +164,7 @@ export default defineComponent({
       selectMenu,
       userInfo,
       toUser,
+      logout,
     };
   },
 });
