@@ -26,6 +26,8 @@
 <script>
 import { reactive, ref } from "vue";
 import { message } from "ant-design-vue";
+import { useRouter } from "vue-router";
+import { useUserInfoStore } from "@/stores/userInfo";
 
 export default {
   name: "login",
@@ -52,11 +54,19 @@ export default {
     };
     const formRef = ref(null);
     const roles = ["admin", "role1", "role2"];
+    const router = useRouter();
     const submit = async () => {
       await formRef.value.validate();
       if (!roles.includes(form.userName) || form.passWord !== "123456") {
         message.warn("账号或密码错误,账号admin,role1,role2,密码123456");
+        return;
       }
+      message.success("登陆成功!");
+      // 将登陆信息存在本地,方便路由拦截
+      sessionStorage.setItem("loginInfo", JSON.stringify(form));
+      router.push("home");
+      const { userInfo, changeUserInfo } = useUserInfoStore();
+      changeUserInfo({ ...userInfo, name: form.userName });
     };
     return {
       form,
