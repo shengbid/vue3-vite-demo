@@ -5,11 +5,17 @@ import {
 import menuLayout from "../layouts/index.vue";
 
 const routes = [{
+    path: '/login',
+    name: 'login',
+    component: () => import('@/views/userManage/login/index.vue')
+  },
+  {
     path: "/",
     component: menuLayout,
     redirect: "/home",
     children: [{
         path: "/home",
+        name: 'home',
         component: () => import("@views/home/index.vue"),
         meta: {
           title: "首页",
