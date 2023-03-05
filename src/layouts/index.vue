@@ -122,6 +122,7 @@ export default defineComponent({
     });
     const userStore = useUserInfoStore();
     const { userInfo } = storeToRefs(userStore);
+    // const { userInfo } = userStore;
     // console.log(userStore);
     console.log("初始值: userInfo", userInfo);
     const router = useRouter();
