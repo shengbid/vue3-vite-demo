@@ -9,10 +9,21 @@
         :rules="rules"
       >
         <a-form-item name="userName">
-          <a-input v-model:value="form.userName" placeholder="用户名admin" />
+          <a-input v-model:value="form.userName" placeholder="用户名admin">
+            <template #prefix>
+              <user-outlined type="user" />
+            </template>
+          </a-input>
         </a-form-item>
         <a-form-item name="passWord">
-          <a-input v-model:value="form.passWord" placeholder="密码123456" />
+          <a-input-password
+            v-model:value="form.passWord"
+            placeholder="密码123456"
+          >
+            <template #prefix>
+              <security-scan-outlined />
+            </template>
+          </a-input-password>
         </a-form-item>
         <p><a href="javascript:void(0);">忘记密码?</a></p>
         <div class="login-btn">
@@ -28,9 +39,14 @@ import { reactive, ref } from "vue";
 import { message } from "ant-design-vue";
 import { useRouter } from "vue-router";
 import { useUserInfoStore } from "@/stores/userInfo";
+import { UserOutlined, SecurityScanOutlined } from "@ant-design/icons-vue";
 
 export default {
   name: "login",
+  components: {
+    UserOutlined,
+    SecurityScanOutlined,
+  },
   setup() {
     const form = reactive({
       userName: "",
