@@ -25,27 +25,46 @@
             </template>
           </a-input-password>
         </a-form-item>
-        <p><a href="javascript:void(0);">忘记密码?</a></p>
+        <p>
+          <a @click="openSlide" href="javascript:void(0);">点击弹出滑块验证</a>
+        </p>
         <div class="login-btn">
           <a-button type="primary" @click="submit">确定</a-button>
         </div>
       </a-form>
     </div>
+    <a-modal v-model:visible="visible" title="身份验证" :footer="false">
+      <SlideVerify
+        :w="450"
+        :h="300"
+        :imgs="imgs"
+        @success="onSuccess"
+        @fail="onFail"
+      />
+    </a-modal>
   </div>
 </template>
 
 <script>
-import { reactive, ref } from "vue";
+import { reactive, ref, toRefs } from "vue";
 import { message } from "ant-design-vue";
 import { useRouter } from "vue-router";
 import { useUserInfoStore } from "@/stores/userInfo";
 import { UserOutlined, SecurityScanOutlined } from "@ant-design/icons-vue";
+import img0 from "@/assets/image/img.jpg";
+import img1 from "@/assets/image/img1.jpg";
+import img2 from "@/assets/image/img2.jpg";
+import img3 from "@/assets/image/img3.jpg";
+import img4 from "@/assets/image/img4.jpg";
+import img5 from "@/assets/image/img5.jpg";
+import SlideVerify from "./components/slide-verify.vue";
 
 export default {
   name: "login",
   components: {
     UserOutlined,
     SecurityScanOutlined,
+    SlideVerify,
   },
   setup() {
     const form = reactive({
@@ -84,11 +103,41 @@ export default {
       const { userInfo, changeUserInfo } = useUserInfoStore();
       changeUserInfo({ ...userInfo, name: form.userName });
     };
+
+    const slideInfo = reactive({
+      visible: false,
+      imgs: [img0, img1, img2, img3, img4, img5],
+    });
+    const slideRef = ref(null);
+
+    // 打开滑块弹框
+    const openSlide = () => {
+      slideInfo.visible = true;
+    };
+
+    // 验证成功
+    const onSuccess = () => {
+      message.success("验证成功");
+      slideInfo.visible = false;
+    };
+    // 验证失败
+    const onFail = () => {
+      message.success("验证失败!");
+    };
+    // 后端验证方法
+    const onJudge = () => {};
+
     return {
       form,
       rules,
       formRef,
       submit,
+      ...toRefs(slideInfo),
+      slideRef,
+      openSlide,
+      onSuccess,
+      onFail,
+      onJudge,
     };
   },
 };
