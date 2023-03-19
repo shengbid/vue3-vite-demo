@@ -34,12 +34,29 @@
       </a-form>
     </div>
     <a-modal v-model:visible="visible" title="身份验证" :footer="false">
-      <SlideVerify
+      <!-- git组件 -->
+      <!-- <SlideVerify
+        :w="450"
+        :h="300"
+        :imgs="imgs"
+        sliderText="向右滑动"
+        @success="onSuccess"
+        @fail="onFail"
+      /> -->
+      <!-- 自己实现的简易版滑块 -->
+      <!-- <Slider
         :w="450"
         :h="300"
         :imgs="imgs"
         @success="onSuccess"
         @fail="onFail"
+      /> -->
+      <!-- 后端验证距离滑块 -->
+      <SlideSplit
+        ref="slideRef"
+        :bigImg="bigImg"
+        :smImg="smImg"
+        @sliderJudge="onJudge"
       />
     </a-modal>
   </div>
@@ -58,6 +75,12 @@ import img3 from "@/assets/image/img3.jpg";
 import img4 from "@/assets/image/img4.jpg";
 import img5 from "@/assets/image/img5.jpg";
 import SlideVerify from "./components/slide-verify.vue";
+import Slider from "./components/slider.vue";
+import SlideSplit from "./components/slide-split.vue";
+import slideA from "@/assets/image/img-slide/slideA.png";
+import slideA2 from "@/assets/image/img-slide/slideA2.png";
+import slideB from "@/assets/image/img-slide/slideB.png";
+import slideB2 from "@/assets/image/img-slide/slideB2.png";
 
 export default {
   name: "login",
@@ -65,6 +88,8 @@ export default {
     UserOutlined,
     SecurityScanOutlined,
     SlideVerify,
+    Slider,
+    SlideSplit,
   },
   setup() {
     const form = reactive({
@@ -108,13 +133,13 @@ export default {
       visible: false,
       imgs: [img0, img1, img2, img3, img4, img5],
     });
-    const slideRef = ref(null);
 
     // 打开滑块弹框
     const openSlide = () => {
       slideInfo.visible = true;
     };
 
+    /** ---------------- 纯前端校验方法 ----------------------- */
     // 验证成功
     const onSuccess = () => {
       message.success("验证成功");
@@ -122,10 +147,56 @@ export default {
     };
     // 验证失败
     const onFail = () => {
-      message.success("验证失败!");
+      message.warning("验证失败!");
     };
-    // 后端验证方法
-    const onJudge = () => {};
+    /** -------------- 后端校验滑动距离方法 ---------------------- */
+    const slideRef = ref(null);
+    const index = ref(0);
+    const imgAjaxs = [
+      {
+        big: slideA,
+        sm: slideA2,
+      },
+      {
+        big: slideB,
+        sm: slideB2,
+      },
+    ];
+    const imgAjaxInfo = reactive({
+      bigImg: "",
+      smImg: "",
+    });
+    // 从后端获取大图,小图图片,这里是一个模拟
+    const getImg = () => {
+      if (index.value === 0) {
+        index.value = 1;
+      } else {
+        index.value = 0;
+      }
+      setTimeout(() => {
+        imgAjaxInfo.bigImg = imgAjaxs[index.value].big;
+        imgAjaxInfo.smImg = imgAjaxs[index.value].sm;
+      }, 500);
+    };
+    // 页面初始时获取图片地址
+    getImg();
+
+    // 后端验证方法, 拿到滑块移动距离后,将值传给后端,判断是否滑动成功
+    const onJudge = (left) => {
+      console.log("left:", left);
+      // 图片使用的是本地图片,模拟验证,实际这里是调用后端接口验证
+      const success1 = index.value === 1 && left > 176 && left < 182;
+      const success2 = index.value === 0 && left > 284 && left < 291;
+      if (success1 || success2) {
+        message.success("验证成功!");
+        slideInfo.visible = false;
+      } else {
+        // 验证失败,重新获取图片,调用滑块的重置方法
+        getImg();
+        message.warning("验证失败!");
+        slideRef && slideRef.value.reset();
+      }
+    };
 
     return {
       form,
@@ -138,6 +209,7 @@ export default {
       onSuccess,
       onFail,
       onJudge,
+      ...toRefs(imgAjaxInfo),
     };
   },
 };
