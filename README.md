@@ -12,3 +12,5 @@ This template should help get you started developing with Vue 3 in Vite. The tem
 5. 动态表单增减
 6. pinia全局数据应用
 7. 数字输入框验证
+8. 组件tab标签,组件缓存
+9. 组件传值
