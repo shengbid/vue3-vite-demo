@@ -39,6 +39,7 @@ export const getRoleAuthor = (roleName, path) => {
   const roleMenus = getRoleMenus(roleName);
   const commonMenu = ["/home", "/login", "/404", "/403"];
   let flag = false;
+  flag = commonMenu.includes(path);
   const render = (data) => {
     data.some((item) => {
       if (item.path === path) {
@@ -50,6 +51,6 @@ export const getRoleAuthor = (roleName, path) => {
     });
   };
   render(roleMenus);
-  flag = commonMenu.includes(path);
+
   return flag;
 };
