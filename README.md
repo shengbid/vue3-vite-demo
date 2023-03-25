@@ -14,3 +14,4 @@ This template should help get you started developing with Vue 3 in Vite. The tem
 7. 数字输入框验证
 8. 组件tab标签,组件缓存
 9. 组件传值
+10. 日期组件参数设置,不可选日期
