@@ -1,7 +1,7 @@
 <template>
   <div>
-    <a-card title="兄弟A组件" style="width: 300px">
-      <p>兄弟B的数据:{{ time }}</p>
+    <a-card title="兄弟A组件">
+      <p>来自兄弟B的数据: 时间:{{ time }}</p>
     </a-card>
   </div>
 </template>
@@ -14,11 +14,11 @@ export default {
   setup() {
     const time = ref("");
 
-    Bus.on("time", (val) => {
+    Bus.on("time", val => {
       console.log(val, time.value);
       time.value = val;
     });
     return { time };
-  },
+  }
 };
 </script>

@@ -1,7 +1,7 @@
 <template>
-  <div>
-    第二层组件
-    <div>最外层数据:{{ name }}</div>
+  <div class="sun">
+    孙子组件
+    <div>来自最外层的数据:{{ name }}</div>
   </div>
 </template>
 
@@ -11,8 +11,14 @@ export default {
   setup() {
     const name = inject("parentName");
     return {
-      name,
+      name
     };
-  },
+  }
 };
 </script>
+<style>
+.sun {
+  padding: 12px;
+  background-color: slateblue;
+}
+</style>
