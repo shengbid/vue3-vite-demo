@@ -27,7 +27,7 @@ export default {
     const route = useRoute();
 
     const handleRoute = () => {
-      console.log(route);
+      // console.log(route);
       const { path, meta } = route;
       info.selectedKeys = [path];
       const paths = path.split("/");
