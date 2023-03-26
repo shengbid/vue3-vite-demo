@@ -19,6 +19,6 @@ export default {
 <style>
 .sun {
   padding: 12px;
-  background-color: slateblue;
+  background-color: rgb(133, 116, 241);
 }
 </style>
