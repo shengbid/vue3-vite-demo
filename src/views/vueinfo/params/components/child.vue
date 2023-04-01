@@ -10,11 +10,11 @@
 
 <script setup>
 import ChildTwo from "./childTwo.vue";
-import { defineProps, defineEmits } from "vue";
+// import { defineProps, defineEmits } from "vue";
 
 defineProps({
   title: String,
-  age: Number
+  age: Number,
 });
 
 const emit = defineEmits(["click"]);
