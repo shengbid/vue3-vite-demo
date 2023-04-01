@@ -166,6 +166,7 @@ export default {
 }
 .date-box .item {
   width: 30%;
+  margin-right: 12px;
   margin-bottom: 12px;
 }
 </style>
