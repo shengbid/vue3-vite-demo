@@ -1,5 +1,4 @@
-export default [
-  {
+export default [{
     path: "/home",
     title: "首页",
     icon: "HomeOutlined",
@@ -8,19 +7,16 @@ export default [
     path: "/chart",
     title: "图表",
     icon: "GatewayOutlined",
-    children: [
-      {
-        path: "/chart/pie",
-        title: "多重环形图",
-      },
-    ],
+    children: [{
+      path: "/chart/pie",
+      title: "多重环形图",
+    }, ],
   },
   {
     path: "/table",
     title: "表格",
     icon: "TableOutlined",
-    children: [
-      {
+    children: [{
         path: "/table/mutilSpanTable",
         title: "动态层级表格合并",
       },
@@ -34,14 +30,17 @@ export default [
     path: "/form",
     title: "表单",
     icon: "ProfileOutlined",
-    children: [
-      {
+    children: [{
         path: "/form/inputNumber",
         title: "数字输入验证",
       },
       {
         path: "/form/datePicker",
         title: "日期选择",
+      },
+      {
+        path: "/form/calendar",
+        title: "日历面板",
       },
       {
         path: "/form/mutilForm",
@@ -53,8 +52,7 @@ export default [
     path: "/demo",
     title: "小例子",
     icon: "SmileOutlined",
-    children: [
-      {
+    children: [{
         path: "/demo/dragTime",
         title: "时间范围选择",
       },
@@ -68,8 +66,7 @@ export default [
     path: "/vueinfo",
     title: "vue知识",
     icon: "FileTextOutlined",
-    children: [
-      {
+    children: [{
         path: "/vueinfo/transfer",
         title: "组件动画",
       },
@@ -90,8 +87,7 @@ export default [
     path: "/userManage",
     title: "用户管理",
     icon: "SettingOutlined",
-    children: [
-      {
+    children: [{
         path: "/userManage/roleMenu",
         title: "角色菜单",
       },

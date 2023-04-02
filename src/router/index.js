@@ -1,8 +1,10 @@
-import { createRouter, createWebHashHistory } from "vue-router";
+import {
+  createRouter,
+  createWebHashHistory
+} from "vue-router";
 import menuLayout from "../layouts/index.vue";
 
-const routes = [
-  {
+const routes = [{
     path: "/login",
     name: "login",
     component: () => import("@/views/userManage/login/index.vue"),
@@ -11,8 +13,7 @@ const routes = [
     path: "/",
     component: menuLayout,
     redirect: "/home",
-    children: [
-      {
+    children: [{
         path: "/home",
         name: "home",
         component: () => import("@views/home/index.vue"),
@@ -23,21 +24,18 @@ const routes = [
       {
         path: "/chart",
         redirect: "/chart/pie",
-        children: [
-          {
-            path: "/chart/pie",
-            component: () => import("@views/chart/index.vue"),
-            meta: {
-              title: "多重环形图",
-            },
+        children: [{
+          path: "/chart/pie",
+          component: () => import("@views/chart/index.vue"),
+          meta: {
+            title: "多重环形图",
           },
-        ],
+        }, ],
       },
       {
         path: "/table",
         redirect: "/table/mutilSpanTable",
-        children: [
-          {
+        children: [{
             path: "/table/mutilSpanTable",
             component: () => import("@views/table/mutilSpanTable/index.vue"),
             meta: {
@@ -56,8 +54,7 @@ const routes = [
       {
         path: "/form",
         redirect: "/form/inputNumber",
-        children: [
-          {
+        children: [{
             path: "/form/inputNumber",
             component: () => import("@views/form/inputNumber/index.vue"),
             meta: {
@@ -72,6 +69,13 @@ const routes = [
             },
           },
           {
+            path: "/form/calendar",
+            component: () => import("@views/form/calendar/index.vue"),
+            meta: {
+              title: "日历面板",
+            },
+          },
+          {
             path: "/form/mutilForm",
             component: () => import("@views/form/mutilForm/index.vue"),
             meta: {
@@ -83,8 +87,7 @@ const routes = [
       {
         path: "/demo",
         redirect: "/demo/dragTime",
-        children: [
-          {
+        children: [{
             path: "/demo/dragTime",
             component: () => import("@views/demo/dragTime/index.vue"),
             meta: {
@@ -103,8 +106,7 @@ const routes = [
       {
         path: "/vueinfo",
         redirect: "/vueinfo/transfer",
-        children: [
-          {
+        children: [{
             path: "/vueinfo/transfer",
             component: () => import("@views/vueinfo/transfer/index.vue"),
             meta: {
@@ -132,8 +134,7 @@ const routes = [
       {
         path: "/userManage",
         redirect: "/userManage/userInfo",
-        children: [
-          {
+        children: [{
             path: "/userManage/roleMenu",
             name: "roleMenu",
             component: () => import("@views/userManage/roleMenu/index.vue"),
