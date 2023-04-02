@@ -9,7 +9,11 @@
     >
       <template #headerRender="{ value, type, onChange, onTypeChange }">
         <div class="header">
-          {{ format(value) }}
+          <left-outlined class="item" @click="dcrease(value, onChange)" />
+          <span class="item">
+            {{ format(value) }}
+          </span>
+          <right-outlined class="item" @click="increase(value, onChange)" />
         </div>
       </template>
       <template #dateFullCellRender="{ current: value }">
@@ -24,26 +28,43 @@
 <script>
 import { ref } from "vue";
 import dayjs from "dayjs";
+import { LeftOutlined, RightOutlined } from "@ant-design/icons-vue";
+
 export default {
   name: "params",
+  components: {
+    LeftOutlined,
+    RightOutlined,
+  },
   setup() {
-    const date = ref();
+    const date = ref(dayjs());
     const onPanelChange = (a) => {
       console.log(a);
     };
     const selectDate = (val) => {
       date.value = val;
     };
-    // 自定义日历头
+    // 自定义日历头显示
     const format = (val) => {
       const newVal = dayjs(val).format("YYYY-MM");
-      console.log(val, newVal);
+      // console.log(val, newVal);
       return newVal;
     };
+    // 月份减少
+    const dcrease = (value, onChange) => {
+      date.value = value.month(value.month() - 1);
+      onChange(date.value);
+    };
+    // 月份增加
+    const increase = (value, onChange) => {
+      date.value = value.month(value.month() + 1);
+      onChange(date.value);
+    };
+
     // 日期样式设置
     const getDateCss = (val) => {
       const day = val.day();
-      const currentMonth = dayjs().month() + 1;
+      const currentMonth = date.value.month() + 1;
       const month = val.month() + 1;
       // 如果不是当前月份
       if (month !== currentMonth) {
@@ -62,6 +83,8 @@ export default {
       format,
       selectDate,
       getDateCss,
+      dcrease,
+      increase,
     };
   },
 };
@@ -71,7 +94,8 @@ export default {
 .box {
   .header {
     padding: 12px;
-    text-align: center;
+    display: flex;
+    justify-content: space-around;
   }
   .date {
     position: relative;
