@@ -1,6 +1,6 @@
 <template>
   <div class="box">
-    <h3>1.自定义头部; 2.自定义日期显示,工作日显示,周末显示</h3>
+    <h3>1.自定义头部, 月份增减; 2.自定义日期显示,工作日显示,周末显示</h3>
     <a-calendar
       :fullscreen="false"
       v-model:value="date"
@@ -50,7 +50,7 @@ export default {
       // console.log(val, newVal);
       return newVal;
     };
-    // 月份减少
+    // 月份减少, 需要保证传给onchange的值,是dayjs日期格式
     const dcrease = (value, onChange) => {
       date.value = value.month(value.month() - 1);
       onChange(date.value);
