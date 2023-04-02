@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h3>calendar日历面板--通知日历与自定义日历面板</h3>
+    <h2>calendar日历面板--通知日历与自定义日历面板</h2>
     <a-tabs>
       <a-tab-pane key="1" tab="通知日历">
         <Notice />
